@@ -4,6 +4,11 @@ Web admin untuk toko online Toserba Makmur yang terintegrasi dengan mobile app. 
 Mobile app Toserba Makmur :
 https://github.com/aditnanda/toserba-makmur-app
 
+# TODO
+1.	Konfigurasi Email untuk notifikasi email customer ada di application/libraries/MY_Email.php
+2.	Konfigurasi Notifikasi untuk mobile ada di application/libraries/Notification.php
+3.	Buat database baru dengan nama db_toserbamakmur lalu import file db_toserbamakmur.sql
+
 # Menu
 1.  Barang
 2.  Supplier
