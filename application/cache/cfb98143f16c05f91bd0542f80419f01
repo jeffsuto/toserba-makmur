@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="<?php echo e(base_url()); ?>public/jquery.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <form id="form" method="post">
+      <input type="text" name="nama" value="">
+      <input type="text" name="kelas" value="">
+      <button type="button" id="btn" name="button">Submit</button>
+    </form><br>
+
+    <table border="1">
+      <thead>
+        <th>Nama</th>
+        <th>Kelas</th>
+        <th>Action</th>
+      </thead>
+      <tbody id="tb">
+
+      </tbody>
+    </table>
+  </body>
+  <script type="text/javascript">
+
+    /*
+    *   Untuk menambahkan data
+    */
+    $('#btn').click(function(e){
+
+      $.ajax({
+
+        url   : 'http://localhost/codeigniter-blade/crud/add',
+        method: 'POST',
+        data : $('#form').serialize(),
+        success : function(e)
+        {
+          console.log('berhasil');
+          getData();
+        },
+        error   : function(e)
+        {
+          console.log('gagal');
+        }
+
+      });
+
+    });
+
+    /*
+    *   Untuk menampilkan data
+    */
+    getData();
+    function getData()
+    {
+      $.ajax({
+
+        url   : 'http://localhost/codeigniter-blade/crud/read',
+        method: 'POST',
+        success : function(data)
+        {
+          var out = "";
+          for (var i = 0; i < data.data.length; i++) {
+            out += '<tr>'
+                    +'<td>'+data.data[i].nama+'</td>'
+                    +'<td>'+data.data[i].kelas+'</td>'
+                    +'<td><button type="button" onclick="del('+"'"+data.data[i].id+"'"+')" name="button">Delete</button></td>'
+                  +'</tr>';
+          }
+          $('#tb').html(out);
+        },
+        error   : function(data)
+        {
+          console.log('gagal');
+        }
+
+      });
+    }
+
+    /*
+    *   Untuk menghapus data
+    */
+    function del(id)
+    {
+      $.ajax({
+
+        url   : 'http://localhost/codeigniter-blade/crud/delete/'+id,
+        method: 'POST',
+        success : function(e)
+        {
+          console.log('berhasil');
+          getData();
+        },
+        error   : function(e)
+        {
+          console.log('gagal');
+        }
+
+      });
+    }
+  </script>
+</html>

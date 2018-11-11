@@ -1,0 +1,56 @@
+<?php $__env->startSection('page-title'); ?>
+  <?php echo e($title); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('theme_js'); ?>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
+	<script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/forms/selects/select2.min.js"></script>
+
+	<script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/core/app.js"></script>
+	<script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/pages/datatables_data_sources.js"></script>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('custom_js'); ?>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/custom.js"></script>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('menu-detailpenjualan'); ?>
+  active
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+  <div class="panel panel-flat">
+		<div class="panel-heading">
+			<h5 class="panel-title">Data List Customer</h5>
+			<div class="heading-elements">
+				<ul class="icons-list">
+					<li><a data-action="collapse"></a></li>
+					<li><a data-action="reload"></a></li>
+					<li><a data-action="close"></a></li>
+				</ul>
+			</div>
+		</div>
+
+		<table class="table datatable-ajax">
+			<thead>
+				<tr>
+					<th>Kode</th>
+					<th>Nama</th>
+					<th>Email</th>
+					<th>Username</th>
+					<th>Password</th>
+					<th>No. Telp</th>
+          <th>Alamat</th>
+          <th>Image</th>
+          <th>Poin</th>
+          <th>Kota</th>
+          <th>Provinsi</th>
+          <th>Action</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,90 @@
+<?php $__env->startSection('page-title'); ?>
+  <?php echo e($title); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('theme_js'); ?>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/media/fancybox.min.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/notifications/bootbox.min.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/notifications/sweet_alert.min.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
+	<script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/forms/selects/select2.min.js"></script>
+
+	<script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/core/app.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/pages/components_modals.js"></script>
+	<script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/pages/datatables_basic.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/pages/gallery_library.js"></script>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('custom_js'); ?>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/custom.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/ajax_edit.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/ajax_delete.js"></script>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('menu-komplain'); ?>
+  active
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+  <div class="panel panel-flat">
+		<div class="panel-heading">
+			<h5 class="panel-title">Data List Komplain</h5>
+			<div class="heading-elements">
+				<ul class="icons-list">
+					<li><a data-action="collapse"></a></li>
+					<li><a data-action="reload"></a></li>
+					<li><a data-action="close"></a></li>
+				</ul>
+			</div>
+		</div>
+
+    <div class="panel-body">
+      <?php /* <form action="<?php echo e(base_url('admin/penjualan')); ?>" method="get">
+        <div class="col-md-2">
+          <select class="form-control" name="filter_status">
+            <option value="ALL" <?php if(isset($_GET['filter_status'])): ?> <?php if($_GET['filter_status'] == "ALL" ): ?> selected <?php endif; ?> <?php endif; ?>>ALL</option>
+            <option value="0" <?php if(isset($_GET['filter_status'])): ?> <?php if($_GET['filter_status'] == "0" ): ?> selected <?php endif; ?> <?php endif; ?>>BELUM BAYAR</option>
+            <option value="1" <?php if(isset($_GET['filter_status'])): ?> <?php if($_GET['filter_status'] == "1" ): ?> selected <?php endif; ?> <?php endif; ?>>DIBATALKAN</option>
+            <option value="2" <?php if(isset($_GET['filter_status'])): ?> <?php if($_GET['filter_status'] == "2" ): ?> selected <?php endif; ?> <?php endif; ?>>PROSES PEMBAYARAN</option>
+            <option value="3" <?php if(isset($_GET['filter_status'])): ?> <?php if($_GET['filter_status'] == "3" ): ?> selected <?php endif; ?> <?php endif; ?>>SELESAI</option>
+            <option value="4" <?php if(isset($_GET['filter_status'])): ?> <?php if($_GET['filter_status'] == "4" ): ?> selected <?php endif; ?> <?php endif; ?>>SUDAH BAYAR</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter Status</button>
+      </form> */ ?>
+    </div>
+
+		<table class="table datatable-basic">
+			<thead>
+				<tr>
+					<th>Kode Penjualan</th>
+					<th>Nama Customer</th>
+					<th>Tanggal Komplain</th>
+          <th>Isi Komplain</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+      <tbody>
+        <?php foreach($komplain_data->result_array() as $row): ?>
+          <tr>
+            <td class="text-center"><?php echo e($row['id_komplain']); ?></td>
+            <td><?php echo e($row['nama']); ?></td>
+            <td><?php echo e($row['tgl_komplain']); ?></td>
+            <td><?php echo e($row['komplain']); ?></td>
+            <td class="text-center">
+              <?php if($row['status'] == "SELESAI"): ?>
+                <label class="label label-success"><?php echo e($row['status']); ?></label>
+              <?php else: ?>
+                <label class="label label-danger"><?php echo e($row['status']); ?></label>
+              <?php endif; ?>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+		</table>
+    <?php echo $__env->make('modals.detailpenjualan', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

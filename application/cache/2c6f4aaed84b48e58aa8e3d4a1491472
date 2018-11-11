@@ -1,0 +1,94 @@
+<?php $__env->startSection('page-title'); ?>
+  <?php echo e($title); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('theme_js'); ?>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/media/fancybox.min.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/notifications/bootbox.min.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/notifications/sweet_alert.min.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
+	<script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/forms/selects/select2.min.js"></script>
+
+	<script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/core/app.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/pages/components_modals.js"></script>
+	<script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/pages/datatables_basic.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/pages/gallery_library.js"></script>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('custom_js'); ?>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/custom.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/ajax_delete.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/ajax_add.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/ajax_edit.js"></script>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('menu-barang'); ?>
+  active
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+  <div class="panel panel-flat">
+		<div class="panel-heading">
+			<h5 class="panel-title">Daftar List Barang</h5>
+			<div class="heading-elements">
+				<ul class="icons-list">
+					<li><a data-action="collapse"></a></li>
+					<li><a data-action="reload"></a></li>
+					<li><a data-action="close"></a></li>
+				</ul>
+			</div>
+		</div>
+    <div class="panel-body">
+      <button type="button" onclick="addBarang()" class="btn btn-success btn-sm" data-toggle="modal" data-target="#barang-modal">
+        <b>Tambah</b>
+      </button>
+    </div>
+		<table class="table datatable-basic">
+			<thead>
+				<tr>
+					<th>Kode Barang</th>
+					<th>Nama Barang</th>
+					<th>Harga Barang</th>
+					<th>Stok Barang</th>
+          <th>Diskon</th>
+          <th>Berat</th>
+          <th>Dimensi</th>
+					<th>Image Barang</th>
+					<th>Deskripsi Barang</th>
+          <th>Nama Supplier</th>
+          <th>Kategori</th>
+          <th class="text-center">Action</th>
+				</tr>
+			</thead>
+      <tbody>
+        <?php foreach($barang_data->result_array() as $row): ?>
+          <tr>
+            <td class="text-center"><?php echo e($row['kode_barang']); ?></td>
+            <td><?php echo e($row['nama_barang']); ?></td>
+            <td class="text-center">Rp. <?php echo e($row['harga_barang']); ?></td>
+            <td class="text-center"><?php echo e($row['stock_barang']); ?></td>
+            <td class="text-center"><?php echo e($row['diskon']); ?>%</td>
+            <td class="text-center"><?php echo e($row['berat']); ?></td>
+            <td class="text-center"><?php echo e($row['dimensi']); ?></td>
+            <td>
+              <a href="<?php echo e(base_url()."assets/images/items/".$row['image']); ?>" data-popup="lightbox">
+                <img src="<?php echo e(base_url()."assets/images/items/".$row['image']); ?>" alt="" class="img-rounded img-preview">
+              </a>
+            </td>
+            <td class="td-limit"><?php echo e($row['deskripsi']); ?></td>
+            <td><?php echo e($row['nama']); ?></td>
+            <td><?php echo e($row['nama_kategori']); ?></td>
+            <td>
+              <button type="button" data-toggle="modal" data-target="#barang-modal" onclick="editBarang('<?php echo e($row['kode_barang']); ?>')" class="btn btn-primary btn-sm">Edit</button>
+              <button class="btn btn-danger btn-sm" onclick="delBarang('<?php echo e($row['kode_barang']); ?>')">Hapus</button>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+		</table>
+	</div>
+  <?php echo $__env->make('modals.barang', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

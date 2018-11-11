@@ -1,0 +1,16 @@
+.td-limit {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.label-belum:hover{
+  background-color: #CE362A;
+}
+.label-sudah:hover{
+  background-color: #379F3B;
+}
+.label-proses:hover{
+  background-color: #e04d1f;
+}

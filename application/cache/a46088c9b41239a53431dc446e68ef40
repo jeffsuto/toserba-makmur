@@ -1,0 +1,99 @@
+<?php $__env->startSection('page-title'); ?>
+  <?php echo e($title); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('theme_js'); ?>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/media/fancybox.min.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/notifications/bootbox.min.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/notifications/sweet_alert.min.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/tables/datatables/datatables.min.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/plugins/forms/selects/select2.min.js"></script>
+
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/core/app.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/pages/components_modals.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/pages/datatables_basic.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/pages/gallery_library.js"></script>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('custom_js'); ?>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/custom.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/ajax_delete.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/ajax_add.js"></script>
+  <script type="text/javascript" src="<?php echo e(base_url()); ?>assets/js/ajax_edit.js"></script>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('menu-pengiriman'); ?>
+  active
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+  <div class="panel panel-flat">
+		<div class="panel-heading">
+			<h5 class="panel-title">Data List Pengiriman</h5>
+			<div class="heading-elements">
+				<ul class="icons-list">
+					<li><a data-action="collapse"></a></li>
+					<li><a data-action="reload"></a></li>
+					<li><a data-action="close"></a></li>
+				</ul>
+			</div>
+		</div>
+
+    <div class="panel-body">
+      <form action="<?php echo e(base_url('admin/pengiriman')); ?>" method="get">
+        <div class="col-md-2">
+          <select class="form-control" name="filter_status">
+            <option value="ALL" <?php if(isset($_GET['filter_status'])): ?> <?php if($_GET['filter_status'] == "ALL" ): ?> selected <?php endif; ?> <?php endif; ?>>ALL</option>
+            <option value="0" <?php if(isset($_GET['filter_status'])): ?> <?php if($_GET['filter_status'] == "0" ): ?> selected <?php endif; ?> <?php endif; ?>>TERKIRIM</option>
+            <option value="1" <?php if(isset($_GET['filter_status'])): ?> <?php if($_GET['filter_status'] == "1" ): ?> selected <?php endif; ?> <?php endif; ?>>DITERIMA</option>
+            <option value="2" <?php if(isset($_GET['filter_status'])): ?> <?php if($_GET['filter_status'] == "2" ): ?> selected <?php endif; ?> <?php endif; ?>>BELUM TERKIRIM</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter Status</button>
+      </form>
+    </div>
+
+    <table class="table datatable-basic">
+			<thead>
+				<tr>
+					<th>Kode Pengiriman</th>
+          <th>Kode Penjualan</th>
+					<th>Nama Ekspedisi</th>
+          <th>No. Resi</th>
+          <th>Alamat Tujuan</th>
+          <th>Waktu Pengiriman</th>
+          <th>Status Pengiriman</th>
+          <th class="text-center">Actions</th>
+				</tr>
+			</thead>
+      <tbody>
+        <?php foreach($pengiriman_data->result_array() as $row): ?>
+          <tr>
+            <td class="text-center"><?php echo e($row['id_pengiriman']); ?></td>
+            <td class="text-center"><?php echo e($row['id_penjualan']); ?></td>
+            <td class="text-center"><?php echo e($row['nama']); ?></td>
+            <td><?php echo e($row['no_resi']); ?></td>
+            <td><?php echo e($row['alamat']); ?></td>
+            <td><?php echo e($row['waktu_pengiriman']); ?></td>
+            <td class="text-center">
+              <?php if($row['status_pengiriman'] == "TERKIRIM"): ?>
+                <label class="label label-success"><?php echo e($row['status_pengiriman']); ?></label>
+              <?php elseif($row['status_pengiriman'] == "BELUM TERKIRIM"): ?>
+                <label class="label label-danger"><?php echo e($row['status_pengiriman']); ?></label>
+              <?php endif; ?>
+            </td>
+            <td class="text-center">
+              <?php /* <button onclick="detailPengiriman('<?php echo e($row['id_pengiriman']); ?>')" data-toggle="modal" data-target="#detailpengiriman-modal" class="btn btn-info btn-sm">Detail</button> */ ?>
+              <button onclick="editPengiriman('<?php echo e($row['id_pengiriman']); ?>', '<?php echo e($row['id_customer']); ?>')" data-toggle="modal" data-target="#detailpengiriman-modal" class="btn btn-primary btn-sm">Edit</button>
+              <button class="btn btn-danger btn-sm" id="btn" onclick="delPengiriman('<?php echo e($row['id_pengiriman']); ?>')">Hapus</button>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+		</table>
+    <?php echo $__env->make('modals.detailpengiriman', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

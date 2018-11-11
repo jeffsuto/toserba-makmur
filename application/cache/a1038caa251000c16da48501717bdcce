@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="<?php echo e(base_url()); ?>public/jquery.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<form class="" id="coba" method="post">
+		<input type="text" name="nama" value="">
+		<input type="text" name="kelas" value="">
+		<button type="button" id="btn" name="button">SUBMIT</button>
+	</form><br><br>
+
+	<table>
+		<thead>
+			<th>nama</th>
+			<th>kelas</th>
+      <th>Action</th>
+		</thead>
+		<tbody id="tb">
+
+		</tbody>
+	</table>
+
+	<script type="text/javascript">
+		var base_url = 'http://localhost/Codeigniter-Blade/';
+		$('#btn').click(function(e) {
+			$.ajax({
+
+				url: base_url + 'crud/add/',
+				method: 'POST',
+				data: $('#coba').serialize(),
+				success: function(data) {
+					console.log('berhasil');
+					getLoadTable();
+				},
+				error: function(data) {
+					console.log('error');
+				}
+
+			});
+		});
+
+		getLoadTable();
+
+		function getLoadTable() {
+			$.ajax({
+
+				url: base_url + 'crud/read/',
+				datatype: 'JSON',
+				success: function(data) {
+					var out = '';
+					for (var i = 0; i < data.data.length; i++) {
+						out += '<tr>' +
+							'<td>' + data.data[i].nama + '</td>' +
+							'<td>' + data.data[i].kelas + '</td>' +
+              '<td>' + '<button type="button" onclick="del('+data.data[i].id+')">SUBMIT</button>' + '</td>' +
+							'</tr>';
+					}
+					console.log('berhasil');
+					$('#tb').html(out);
+				},
+        beforeSend  : function(data)
+        {
+          console.log('proseess');
+        },
+				error: function(data) {
+					console.log('error');
+				}
+
+			});
+		}
+
+    function del(id)
+    {
+      $.ajax({
+
+				url: base_url + 'crud/del/'+id,
+				method: 'POST',
+				success: function(data) {
+					console.log('berhasil');
+					getLoadTable();
+				},
+				error: function(data) {
+					console.log('error');
+				}
+
+			});
+    }
+	</script>
+</body>
+
+</html>
