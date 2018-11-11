@@ -13,4 +13,4 @@ Web admin untuk toko online Toserba Makmur yang terintegrasi dengan mobile app. 
 9.  Laporan Penjualan (harian,bulanan, tahunan dan konversi ke .PDF)
 #
 
-Jika ingin merubah base_url, jangan lupa untuk merubah var base_url di assets/js/custom.js
+Jika ingin merubah base_url, jangan lupa untuk merubah "let base_url" di assets/js/custom.js
