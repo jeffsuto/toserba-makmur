@@ -15,8 +15,8 @@
       $config['protocol'] = 'smtp';
       $config['smtp_host'] = 'ssl://smtp.gmail.com';
       $config['smtp_port'] = 465;
-      $config['smtp_user'] = 'info.lestarisurabaya@gmail.com'; //email pengirim
-      $config['smtp_pass'] = 'Lestari123'; //password pengirim
+      $config['smtp_user'] = ''; //email pengirim
+      $config['smtp_pass'] = ''; //password pengirim
       $config['mailtype'] = 'html';
       $config['charset'] = 'iso-8859-1';
       $config['wordwrap'] = TRUE;

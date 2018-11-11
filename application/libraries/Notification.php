@@ -4,7 +4,8 @@
    * Notification for android with firebase clouds
    */
 
-  define( 'API_ACCESS_KEY', 'AAAAakNiXv4:APA91bG_box8SC6w5B4mTrMggBbHBEmmFLYCOZOLXuo4j8wPjKFeoqzuSrQZa8xkptEq-uqkzk7CNYrZ6DS3sstjwBBs8zaBspH3Xxot1ZgW6LFjCTpBSa_1F-LduRFbu_3fvnSfsO3V');
+  // TODO : API_ACCESS_KEY dari firebase
+  define( 'API_ACCESS_KEY', 'YOUR_API_ACCESS_KEY');
 
   class Notification
   {
@@ -13,17 +14,17 @@
     {
       $msg = array(
         'body' => $message['body'],
-        'title' => 'Toko Lestari - '.$message['title']
+        'title' => 'Toserba Makmur - '.$message['title']
       );
 
       if ($id_customer == "") {
         $fields = array(
-          'to' => '/topics/untag.tugasakhir.lestari.lestari',
+          'to' => '/topics/YOUR_PACKAGE_APP', // TODO : isi mobile package app 
           'notification'	=> $msg
         );
       }else {
         $fields = array(
-          'to' => '/topics/untag.tugasakhir.lestari.lestari.'.$id_customer,
+          'to' => '/topics/YOUR_PACKAGE_APP.'.$id_customer, // TODO : isi mobile package app
           'notification'	=> $msg
         );
       }
